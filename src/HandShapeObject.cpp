@@ -13,7 +13,9 @@ HandShapeObject::HandShapeObject()
 {
     mKinectHeightImage.allocate(KINECT_X, KINECT_Y);
     mOutputShapeImage.allocate(RELIEF_PROJECTOR_SIZE_X, RELIEF_PROJECTOR_SIZE_Y);
+    smallerImage.allocate(RELIEF_PROJECTOR_SIZE_X, RELIEF_PROJECTOR_SIZE_Y);
     allPixels = new unsigned char[RELIEF_SIZE];
+    isMirror = false;
 };
 
 void HandShapeObject::setup()
@@ -31,9 +33,13 @@ void HandShapeObject::update(float dt)
     mKinectHeightImage.setFromPixels(pixels, KINECT_X, KINECT_Y);
     mImageWarper->warpIntoImage(mKinectHeightImage, mOutputShapeImage);
     
-    //ofxCvGrayscaleImage smallerImage;
-    smallerImage.allocate(RELIEF_PHYSICAL_SIZE_X, RELIEF_PHYSICAL_SIZE_Y);
-    this->mImageWarper->warpIntoImage(mKinectHeightImage, smallerImage);
+    if(isMirror)
+    {
+        mOutputShapeImage.mirror(true, true);
+    }
+    
+    smallerImage.setFromPixels(mOutputShapeImage.getPixels(),RELIEF_PROJECTOR_SIZE_X, RELIEF_PROJECTOR_SIZE_Y);
+    smallerImage.resize(RELIEF_PHYSICAL_SIZE_X, RELIEF_PHYSICAL_SIZE_Y);
     allPixels = smallerImage.getPixels();
 }
 
@@ -42,7 +48,6 @@ void HandShapeObject::update(float dt)
 void HandShapeObject::renderShape()
 {
     mOutputShapeImage.draw(0,0, RELIEF_PROJECTOR_SIZE_X, RELIEF_PROJECTOR_SIZE_Y);
-    //smallerImage.draw(0, 0, RELIEF_PHYSICAL_SIZE_X, RELIEF_PHYSICAL_SIZE_Y);
 }
 
 //----------------------------------------------------
@@ -71,6 +76,14 @@ void HandShapeObject::setTableValuesForShape(ShapeIOManager *pIOManager)
 };
 
 //----------------------------------------------------
+
+void HandShapeObject::setMirror(bool _val)
+{
+    isMirror = _val;
+}
+
+//----------------------------------------------------
+
 
 unsigned char* HandShapeObject::getPixels()
 {

@@ -187,10 +187,11 @@ void ReliefApplication::setupEasyGui() {
     modes.push_back("fish loop");
     //modes.push_back("fish loop not shy"); //TODO
     modes.push_back("wave loop");
-    modes.push_back("machine loop");
+    modes.push_back("machine");
     modes.push_back("escher standard");
     modes.push_back("escher drop/pickup");
-    //modes.push_back("kinect hand");
+    modes.push_back("kinect hand");
+    modes.push_back("kinect hand mirror");
     
     ofxUIRadio *easyRadio = easyGui->addRadio("MODES", modes);
     easyRadio->activateToggle("none");
@@ -490,37 +491,6 @@ void ReliefApplication::update(){
     if(controlTimeline) {
         
         mWavyShapeObject->setWaveScalar(getValueForCurrentPage("Water Level"));
-//<<<<<<< HEAD
-//=======
-        
-//        if (getValueForCurrentPage("Water Current") != 0)
-//            mWavyShapeObject->setIdleWaveScalar(getValueForCurrentPage("Water Current"));
-//
-//        //cout << "water level is: " << getValueForCurrentPage("Water Level") << endl;
-//
-//        if(currentPage == "Rest") {
-//            
-//            if(isSwitchOnForCurrentPage("Calm")) mCurrentShapeObjects.push_back(mCalmShapeObject);
-//            else mCurrentShapeObjects.push_back(mFlockShapeObject);
-//            
-//            mFlockShapeObject->setFishStay(true);
-//            
-//        } else if (currentPage =="Transition") {
-//            
-//            mCurrentShapeObjects.push_back(mFlockShapeObject);
-//            
-//        } else if(currentPage == "Awake") {
-//            mFlockShapeObject->setFishStay(false);
-//            if(isSwitchOnForCurrentPage("Calm")) {
-//                mCurrentShapeObjects.push_back(mCalmShapeObject);
-//            } else {
-//                if(isSwitchOnForCurrentPage("Wavy"))
-//                    mCurrentShapeObjects.push_back(mFlockShapeObject);
-//                mCurrentShapeObjects.push_back(mMachineAnimationShapeObject);
-//            }
-//            
-//        }
-
      
         // iterate though all shape objects and check if
         // trigger is on for this shape object
@@ -534,8 +504,6 @@ void ReliefApplication::update(){
         
         // go to next page if we have blobs
         if(!isSkipFish)setPageBasedOnBlobCount();
-    
-        
     }
     
     // creates warping preview image
@@ -788,6 +756,12 @@ void ReliefApplication::draw(){
         ofRect(ofGetWidth() - 200,  ofGetHeight() -300, 30, 100);
         ofRect(ofGetWidth() - 140,  ofGetHeight() -300, 30, 100);
    }
+    
+    ofxCvGrayscaleImage testImage;
+    testImage.allocate(102, 24);
+    testImage.setFromPixels(mCurrentShapeObjects[0]->getPixels(), 102, 24);
+    testImage.draw(0, 0);
+    
 }
 
 //--------------------------------------------------------------
@@ -1187,9 +1161,9 @@ void ReliefApplication::guiEvent(ofxUIEventArgs &e) {
             mCurrentShapeObjects.push_back(mWavyShapeObject);
         }
         
-        else if(radio->getActiveName() == "machine loop")
+        else if(radio->getActiveName() == "machine")
         {
-            cout << "MODE - machine loop" << endl;
+            cout << "MODE - machine" << endl;
             isSkipFish =true;
             mCurrentShapeObjects.clear();
             controlTimeline = true;
@@ -1197,6 +1171,7 @@ void ReliefApplication::guiEvent(ofxUIEventArgs &e) {
             
             mMachineAnimationShapeObject->playMovieByFilename("FINAL.mov");
             mMachineAnimationShapeObject->pause();
+            mMachineAnimationShapeObject->setLooping(false);
             timeline.stop();
             timeline.setCurrentPage("Wave");
             timeline.setCurrentTimeSeconds(53);
@@ -1241,6 +1216,19 @@ void ReliefApplication::guiEvent(ofxUIEventArgs &e) {
             
             mCurrentShapeObjects.clear();
             mCurrentShapeObjects.push_back(mHandShapeObject);
+            mHandShapeObject->setMirror(false);
+
+        }
+        
+        else if(radio->getActiveName() == "kinect hand mirror")
+        {
+            cout << "kinect hand mirror" << endl;
+            controlTimeline = false;
+            controlManual = true;
+            
+            mCurrentShapeObjects.clear();
+            mCurrentShapeObjects.push_back(mHandShapeObject);
+            mHandShapeObject->setMirror(true);
         }
     }
     

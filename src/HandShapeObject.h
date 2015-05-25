@@ -28,6 +28,7 @@ public:
     void setKinectTracker(KinectTracker * pKinectTracker){mKinectTracker = pKinectTracker;};
     void setImageWarper(ImageWarper * pImageWarper) {mImageWarper = pImageWarper;};
     void setTableValuesForShape(ShapeIOManager *pIOManager);
+    void setMirror(bool _val);
     unsigned char* getPixels();
     
     string get_shape_name() {return shape_name; };
@@ -40,6 +41,7 @@ private:
     ofxCvGrayscaleImage mKinectHeightImage, mOutputShapeImage, smallerImage;
     
     unsigned char* allPixels;
+    bool isMirror;
 };
 
 #endif /* defined(__basicExample__HandShapeObject__) */
