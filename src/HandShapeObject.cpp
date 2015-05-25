@@ -40,7 +40,15 @@ void HandShapeObject::update(float dt)
     
     smallerImage.setFromPixels(mOutputShapeImage.getPixels(),RELIEF_PROJECTOR_SIZE_X, RELIEF_PROJECTOR_SIZE_Y);
     smallerImage.resize(RELIEF_PHYSICAL_SIZE_X, RELIEF_PHYSICAL_SIZE_Y);
+    
     allPixels = smallerImage.getPixels();
+    
+    //make all grey pixels white so the hand is displayed with maximum pin height
+    for(int i = 0; i < RELIEF_SIZE; i ++)
+    {
+        if(allPixels[i] > 0)
+            allPixels[i] = 255;
+    }
 }
 
 //----------------------------------------------------
