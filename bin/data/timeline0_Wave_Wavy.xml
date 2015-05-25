@@ -1,0 +1,8 @@
+<keyframes>
+    <key>
+        <switchName>Wave</switchName>
+        <max>00:00:59:999</max>
+        <time>00:00:00:001</time>
+        <value>0.475000024</value>
+    </key>
+</keyframes>

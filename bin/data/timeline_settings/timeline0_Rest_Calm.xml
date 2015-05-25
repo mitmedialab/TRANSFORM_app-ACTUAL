@@ -1,0 +1,8 @@
+<keyframes>
+    <key>
+        <switchName>motor cools down</switchName>
+        <max>00:01:02:343</max>
+        <time>00:00:47:812</time>
+        <value>0.625000000</value>
+    </key>
+</keyframes>

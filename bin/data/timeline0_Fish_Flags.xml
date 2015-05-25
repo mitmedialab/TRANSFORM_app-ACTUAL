@@ -1,0 +1,17 @@
+<keyframes>
+    <key>
+        <flag />
+        <time>00:00:07:500</time>
+        <value>0.625000000</value>
+    </key>
+    <key>
+        <flag />
+        <time>00:01:33:046</time>
+        <value>1.000000000</value>
+    </key>
+    <key>
+        <flag>repeat</flag>
+        <time>00:04:27:657</time>
+        <value>0.375000000</value>
+    </key>
+</keyframes>

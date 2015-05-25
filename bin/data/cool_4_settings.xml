@@ -1,0 +1,35 @@
+<Widget>
+    <Kind>42</Kind>
+    <Name>Wave Interpolation</Name>
+    <Value>3</Value>
+</Widget>
+<Widget>
+    <Kind>42</Kind>
+    <Name>Wave Speed</Name>
+    <Value>1</Value>
+</Widget>
+<Widget>
+    <Kind>42</Kind>
+    <Name>Wave Timestep (ms)</Name>
+    <Value>78</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>Sea Level</Name>
+    <Value>111.798027039</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>Wave Amplitude</Name>
+    <Value>1.536945820</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>Idle Wave Amplitude</Name>
+    <Value>128.078811646</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>Idle Wave Frequency</Name>
+    <Value>7.389162540</Value>
+</Widget>

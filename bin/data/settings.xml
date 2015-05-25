@@ -1,0 +1,33 @@
+<group>
+	<Use_table>0</Use_table>
+	<SOURCE_Kinect>1</SOURCE_Kinect>
+	<SOURCE_Kinect_Recording>0</SOURCE_Kinect_Recording>
+	<Use_Kinect_Shape_Anim>0</Use_Kinect_Shape_Anim>
+	<Use_Machine_Animation>0</Use_Machine_Animation>
+	<Use_Fade_Object>0</Use_Fade_Object>
+	<Use_TCP>0</Use_TCP>
+	<Use_Mask>1</Use_Mask>
+	<Near_Threshold>202</Near_Threshold>
+	<Far_Threshold>77</Far_Threshold>
+	<Contour_Min_Size>11</Contour_Min_Size>
+	<P_Term>1.5</P_Term>
+	<I_Term>0.045</I_Term>
+	<Max_I_>25</Max_I_>
+	<deadzone>5</deadzone>
+	<Max_Speed>200</Max_Speed>
+	<Use_Wave_Animation>0</Use_Wave_Animation>
+	<Wave_Interpolation>3</Wave_Interpolation>
+	<Wave_Speed>1</Wave_Speed>
+	<Wave_Timestep__ms_>50</Wave_Timestep__ms_>
+	<Top_Left_X>130</Top_Left_X>
+	<Top_Left_Y>170</Top_Left_Y>
+	<Top_Right_X>610</Top_Right_X>
+	<Top_Right_Y>150</Top_Right_Y>
+	<Bottom_Right_X>610</Bottom_Right_X>
+	<Bottom_Right_Y>270</Bottom_Right_Y>
+	<Bottom_Left_X>140</Bottom_Left_X>
+	<Bottom_Left_Y>280</Bottom_Left_Y>
+    <Use_Flock_Animation>0</Use_Flock_Animation>
+    <Activate_Heartbeat>0</Activate_Heartbeat>
+<group/>
+</group>

@@ -1,0 +1,25 @@
+<Widget>
+    <Kind>4</Kind>
+    <Name>P TERM</Name>
+    <Value>0.236453205</Value>
+</Widget>
+<Widget>
+    <Kind>4</Kind>
+    <Name>I TERM</Name>
+    <Value>0.044334974</Value>
+</Widget>
+<Widget>
+    <Kind>42</Kind>
+    <Name>Max I</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>42</Kind>
+    <Name>deadzone</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>42</Kind>
+    <Name>Max Speed</Name>
+    <Value>0</Value>
+</Widget>
