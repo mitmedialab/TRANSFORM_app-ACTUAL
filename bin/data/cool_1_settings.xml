@@ -45,6 +45,11 @@
 </Widget>
 <Widget>
     <Kind>17</Kind>
+    <Name>_FINAL.mov</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
     <Name>escher_3_slow_3.mov</Name>
     <Value>0</Value>
 </Widget>
@@ -76,15 +81,5 @@
 <Widget>
     <Kind>17</Kind>
     <Name>ken_poker_final1.mov</Name>
-    <Value>0</Value>
-</Widget>
-<Widget>
-    <Kind>17</Kind>
-    <Name>test_v22.mov</Name>
-    <Value>0</Value>
-</Widget>
-<Widget>
-    <Kind>17</Kind>
-    <Name>test_v23.mov</Name>
     <Value>0</Value>
 </Widget>

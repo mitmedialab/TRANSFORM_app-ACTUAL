@@ -50,7 +50,7 @@
     <element name="Machine Animation">
         <x>0.000000000</x>
         <y>518.000000000</y>
-        <width>1024.000000000</width>
+        <width>1280.000000000</width>
         <height>40.000000000</height>
     </element>
     <element name="Machine Animation_0">
@@ -62,19 +62,19 @@
     <element name="Machine Blend">
         <x>0.000000000</x>
         <y>70.000000000</y>
-        <width>1024.000000000</width>
+        <width>1280.000000000</width>
         <height>40.000000000</height>
     </element>
     <element name="Machine Calm">
         <x>0.000000000</x>
         <y>390.000000000</y>
-        <width>1024.000000000</width>
+        <width>1280.000000000</width>
         <height>40.000000000</height>
     </element>
     <element name="Machine Flags">
         <x>0.000000000</x>
         <y>454.000000000</y>
-        <width>1024.000000000</width>
+        <width>1280.000000000</width>
         <height>40.000000000</height>
     </element>
     <element name="Machine Flock">
@@ -86,7 +86,7 @@
     <element name="Machine Machine Animation">
         <x>0.000000000</x>
         <y>326.000000000</y>
-        <width>1024.000000000</width>
+        <width>1280.000000000</width>
         <height>40.000000000</height>
     </element>
     <element name="Machine Timeline">
@@ -98,19 +98,19 @@
     <element name="Machine Water Current">
         <x>0.000000000</x>
         <y>198.000000000</y>
-        <width>1024.000000000</width>
+        <width>1280.000000000</width>
         <height>40.000000000</height>
     </element>
     <element name="Machine Water Level">
         <x>0.000000000</x>
         <y>134.000000000</y>
-        <width>1024.000000000</width>
+        <width>1280.000000000</width>
         <height>40.000000000</height>
     </element>
     <element name="Machine Wavy">
         <x>0.000000000</x>
         <y>262.000000000</y>
-        <width>1024.000000000</width>
+        <width>1280.000000000</width>
         <height>40.000000000</height>
     </element>
 </positions>
