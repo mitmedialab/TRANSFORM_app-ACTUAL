@@ -33,6 +33,9 @@ public:
     void draw();
     void exit();
     
+    
+    
+    
     // buffer rendering
     void renderPinDisplayBuffer(); // render pin display to buffer
     void renderHeightMapBuffer(); // render height map to buffer
