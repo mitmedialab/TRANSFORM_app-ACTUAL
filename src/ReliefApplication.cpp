@@ -12,6 +12,7 @@ void ReliefApplication::setup(){
     mImageWarper = new ImageWarper(0,0,RELIEF_PROJECTOR_SIZE_X,RELIEF_PROJECTOR_SIZE_Y);
     mImageWarper->loadSettings("settings_warp_points.xml");
     
+
     
     // setup kinect if using
     // @todo we only want to setup if connected
