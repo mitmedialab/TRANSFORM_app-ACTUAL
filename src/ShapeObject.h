@@ -16,6 +16,7 @@
 class ShapeObject {
 public:
     virtual void update(float dt){};
+    //virtual void update(float dt, /* */){};
     virtual void renderGraphics(){};
     virtual void renderGraphics(int x, int y, int w, int h){};
     virtual void renderShape(){};
