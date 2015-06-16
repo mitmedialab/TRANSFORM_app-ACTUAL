@@ -21,6 +21,7 @@
 #include "EscherShapeObject.h"
 #include "ImageShapeObject.h"
 #include "HandShapeObject.h"
+#include "TouchShapeObject.h"
 #include "ofxTimeline.h"
 #include "ofxUI.h"
 
@@ -32,6 +33,9 @@ public:
     void update();
     void draw();
     void exit();
+    
+    
+    
     
     // buffer rendering
     void renderPinDisplayBuffer(); // render pin display to buffer
@@ -81,6 +85,7 @@ public:
     ImageShapeObject            * mImageShapeObject;
     EscherShapeObject           * mEscherShapeObject;
     HandShapeObject             * mHandShapeObject;
+    TouchShapeObject            * mTouchShapeObject;
     
     ofxCvColorImage             cvColorImage;
     ofxCvColorImage             cvWarpedImage;
@@ -98,8 +103,12 @@ public:
     KinectVideoPlayer           kinectVideoPlayer;
     VideoRecorder               recorder;
     
+    unsigned char fakeArray[RELIEF_SIZE_X][RELIEF_SIZE_Y];
+    unsigned char pinHeightReceive[RELIEF_SIZE_X][RELIEF_SIZE_Y];
+    
     unsigned char* compPixels;
     unsigned char* targetPixels;
+    
     
     // setup available screens
     // this is more robust then setting by integer

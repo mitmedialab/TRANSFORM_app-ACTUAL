@@ -12,6 +12,7 @@ void ReliefApplication::setup(){
     mImageWarper = new ImageWarper(0,0,RELIEF_PROJECTOR_SIZE_X,RELIEF_PROJECTOR_SIZE_Y);
     mImageWarper->loadSettings("settings_warp_points.xml");
     
+
     
     // setup kinect if using
     // @todo we only want to setup if connected
@@ -140,6 +141,16 @@ void ReliefApplication::initalizeShapeObjects() {
     mHandShapeObject->setImageWarper(mImageWarper);
     mHandShapeObject->setKinectTracker(&mKinectTracker);
     
+    
+    //char fakeArray[RELIEF_SIZE_X][RELIEF_SIZE_Y];
+    
+    mTouchShapeObject = new TouchShapeObject();
+    mTouchShapeObject->setPinHeight((char **) fakeArray);
+    
+    
+    
+    //char ** fakeArray;
+    
     // push all shape objects to a buffer
     allShapeObjects.push_back(mWavyShapeObject);
     allShapeObjects.push_back(mFlockShapeObject);
@@ -150,6 +161,7 @@ void ReliefApplication::initalizeShapeObjects() {
     allShapeObjects.push_back(mImageShapeObject);
     allShapeObjects.push_back(mEscherShapeObject);
     allShapeObjects.push_back(mHandShapeObject);
+    allShapeObjects.push_back(mTouchShapeObject);
 }
 
 
@@ -482,6 +494,12 @@ int ReliefApplication::getIntValueForCurrentPage(string curveName) {
 //--------------------------------------------------------------
 void ReliefApplication::update(){
     
+    for(int i = 0; i < RELIEF_SIZE_X; i++){
+        for(int j = 0; j < RELIEF_SIZE_Y; j++){
+            pinHeightReceive[i][j] =  mIOManager->pinHeightFromRelief[i][j];
+        }
+    }
+    
     // prevent playing in manual mode
     if(!controlTimeline) timeline.stop();
     
@@ -537,7 +555,8 @@ void ReliefApplication::update(){
     
     // update all shape objects and values
     for(int i = 0; i < mCurrentShapeObjects.size(); i++) {
-        mCurrentShapeObjects[i]->update(dt);
+
+            mCurrentShapeObjects[i]->update(dt);
         // @note the last shape object values will win out here.
         mCurrentShapeObjects[i]->setTableValuesForShape(mIOManager);
     }
@@ -603,6 +622,9 @@ void ReliefApplication::update(){
 //        cout << mCurrentShapeObjects[i]->get_shape_name() << endl;
 //    }
 //    cout << "----" << endl;
+    
+
+    
 }
 
 //--------------------------------------------------------------
