@@ -36,15 +36,20 @@ void TouchShapeObject::update(float dt)
     
     //RELIEF_SIZE_X RELIEF_SIZE_Y
     //int h = mPinHeightReceive[RELIEF_SIZE_X/2][RELIEF_SIZE_Y/2];
-    
+    cout << "in touch so pointer :"<< (int)mPinHeightReceive << endl;
     char *height = mPinHeightReceive[RELIEF_SIZE_X/2];
     if(height != NULL){
     int h = height[RELIEF_SIZE_Y/2];
-        cout << "h" << endl;
+        cout << "in touch so value :"<< h << endl;
+        
     }
     
     //this->mImageWarper->warpIntoImage(mKinectHeightImage, smallerImage);
-    allPixels = smallerImage.getPixels();
+    
+    for(int i = 0; i < RELIEF_PHYSICAL_SIZE_X * RELIEF_PHYSICAL_SIZE_Y; i++)
+        allPixels[i] = 100;
+    
+    //allPixels = smallerImage.getPixels();
 }
 
 //----------------------------------------------------

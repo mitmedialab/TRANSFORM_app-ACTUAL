@@ -145,7 +145,7 @@ void ReliefApplication::initalizeShapeObjects() {
     //char fakeArray[RELIEF_SIZE_X][RELIEF_SIZE_Y];
     
     mTouchShapeObject = new TouchShapeObject();
-    mTouchShapeObject->setPinHeight((char **) fakeArray);
+    mTouchShapeObject->setPinHeight((char **) pinHeightReceive);
     
     
     
@@ -500,6 +500,9 @@ void ReliefApplication::update(){
         }
     }
     
+    cout << "in RA value :" << (int)pinHeightReceive[RELIEF_SIZE_X/2][RELIEF_SIZE_Y/2] << endl;
+    cout << "in RA pointer :" << (int)pinHeightReceive << endl;
+    
     // prevent playing in manual mode
     if(!controlTimeline) timeline.stop();
     
@@ -554,6 +557,8 @@ void ReliefApplication::update(){
     float dt = 1.0f / ofGetFrameRate();
     
     // update all shape objects and values
+    
+    cout << "in RA value 2nd :" << (int)pinHeightReceive[RELIEF_SIZE_X/2][RELIEF_SIZE_Y/2] << endl;
     for(int i = 0; i < mCurrentShapeObjects.size(); i++) {
 
             mCurrentShapeObjects[i]->update(dt);
