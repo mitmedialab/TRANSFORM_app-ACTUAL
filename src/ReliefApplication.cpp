@@ -145,7 +145,7 @@ void ReliefApplication::initalizeShapeObjects() {
     //char fakeArray[RELIEF_SIZE_X][RELIEF_SIZE_Y];
     
     mTouchShapeObject = new TouchShapeObject();
-    mTouchShapeObject->setPinHeight((char **) pinHeightReceive);
+    mTouchShapeObject->setPinHeight(pinHeightReceive);
     
     
     
@@ -500,9 +500,6 @@ void ReliefApplication::update(){
         }
     }
     
-    cout << "in RA value :" << (int)pinHeightReceive[RELIEF_SIZE_X/2][RELIEF_SIZE_Y/2] << endl;
-    cout << "in RA pointer :" << (int)pinHeightReceive << endl;
-    
     // prevent playing in manual mode
     if(!controlTimeline) timeline.stop();
     
@@ -558,13 +555,18 @@ void ReliefApplication::update(){
     
     // update all shape objects and values
     
-    cout << "in RA value 2nd :" << (int)pinHeightReceive[RELIEF_SIZE_X/2][RELIEF_SIZE_Y/2] << endl;
+    cout << "in RA value :" << (int)pinHeightReceive[RELIEF_SIZE_X/2][RELIEF_SIZE_Y/2] << endl;
+    unsigned char *k;
+    k = (unsigned char *) pinHeightReceive;
+    cout << "in RA value2 :" << (int) k[(RELIEF_SIZE_X/2) * sizeof(unsigned char) * RELIEF_SIZE_Y + RELIEF_SIZE_Y/2] << endl;
+    ;
     for(int i = 0; i < mCurrentShapeObjects.size(); i++) {
 
             mCurrentShapeObjects[i]->update(dt);
         // @note the last shape object values will win out here.
         mCurrentShapeObjects[i]->setTableValuesForShape(mIOManager);
     }
+    cout << '.' << endl;
 
     // buffer drawing
     // @todo matt this needs refactoring, along with all shape objects

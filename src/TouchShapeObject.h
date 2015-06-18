@@ -24,9 +24,9 @@ public:
     void renderShape();
     void renderGraphics(int x, int y, int w, int h);
     void drawGuiScreen(int x, int y, int w, int h);
-    void setPinHeight(char ** pinHeightReceive)
-    {
-        mPinHeightReceive = pinHeightReceive;};
+    void setPinHeight(unsigned char pinHeightReceive[RELIEF_SIZE_X][RELIEF_SIZE_Y]){
+        mPinHeightReceive = (unsigned char *) pinHeightReceive;
+    };
     //void setImageWarper(ImageWarper * pImageWarper) {mImageWarper = pImageWarper;};
     void setTableValuesForShape(ShapeIOManager *pIOManager);
     unsigned char* getPixels();
@@ -36,7 +36,7 @@ public:
     
     
 private:
-    char ** mPinHeightReceive;
+    unsigned char *mPinHeightReceive;
    // ImageWarper * mImageWarper;
     ofxCvGrayscaleImage mOutputShapeImage, smallerImage;
     
