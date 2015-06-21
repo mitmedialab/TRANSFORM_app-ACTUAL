@@ -554,12 +554,7 @@ void ReliefApplication::update(){
     float dt = 1.0f / ofGetFrameRate();
     
     // update all shape objects and values
-    
-    cout << "in RA value :" << (int)pinHeightReceive[RELIEF_SIZE_X/2][RELIEF_SIZE_Y/2] << endl;
-    unsigned char *k;
-    k = (unsigned char *) pinHeightReceive;
-    cout << "in RA value2 :" << (int) k[(RELIEF_SIZE_X/2) * sizeof(unsigned char) * RELIEF_SIZE_Y + RELIEF_SIZE_Y/2] << endl;
-    ;
+
     for(int i = 0; i < mCurrentShapeObjects.size(); i++) {
 
             mCurrentShapeObjects[i]->update(dt);

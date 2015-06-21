@@ -286,7 +286,7 @@ void ShapeIOManager::readPinHeightsFromBoards() {
             }
         }
     }
-    cout <<"in IO manager :" << (int)pinHeightFromRelief[RELIEF_SIZE_X/2][RELIEF_SIZE_Y/2] << endl;
+
 }
 
 
