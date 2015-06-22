@@ -31,6 +31,10 @@ public:
     };
     //void setImageWarper(ImageWarper * pImageWarper) {mImageWarper = pImageWarper;};
     void setTableValuesForShape(ShapeIOManager *pIOManager);
+    void singleElasticSurface();
+    void triSurface();
+    void waveSurface();
+    
     unsigned char* getPixels();
     
     int xCoordinateShift(int num);
@@ -49,6 +53,7 @@ private:
     unsigned char* allPixels;
     int differenceHeight[RELIEF_SIZE_X][RELIEF_SIZE_Y];
     int filterFrame = NUM_FILTER_FRAME;
+    int lineSize;
     
     unsigned char allPixels_store[RELIEF_SIZE][NUM_FILTER_FRAME];
     

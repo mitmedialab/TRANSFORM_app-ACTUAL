@@ -28,7 +28,7 @@ TouchShapeObject::TouchShapeObject()
             differenceHeight[i][j] = 0;
         }
     }
-    
+    lineSize = sizeof(char) * RELIEF_SIZE_Y;
 }
 
 void TouchShapeObject::setup()
@@ -41,7 +41,7 @@ void TouchShapeObject::setup()
 void TouchShapeObject::update(float dt)
 {
     unsigned char * pixels;
-    int lineSize = sizeof(char) * RELIEF_SIZE_Y;
+    
     
     
     //store data
@@ -107,47 +107,9 @@ void TouchShapeObject::update(float dt)
         }
     }
     
-    //*** MODE: Every Pin Input ***//
-    
-    for(int i = 0; i< RELIEF_SIZE_X; i++){
-        for(int j = 0; j< RELIEF_SIZE_Y; j++){
-                allPixels[RELIEF_PHYSICAL_SIZE_X* j+ xCoordinateShift(i)] = HIGH_THRESHOLD;
-            
-        }
-    }
     
     
-    int rangeDef = 10; //range of deformation
-    for(int i = 0; i< RELIEF_SIZE_X; i++){
-        for(int j = 0; j< RELIEF_SIZE_Y; j++){
-            if (isTouched[i][j]) {
-                unsigned char h = MAX(LOW_THRESHOLD,mPinHeightReceive[i * lineSize + j]);
-                for (int ii = MAX(0,i - rangeDef); ii< MIN(RELIEF_SIZE_X,i+rangeDef); ii++) {
-                    for (int jj = MAX(0,j - rangeDef); jj< MIN(RELIEF_SIZE_Y,j+rangeDef); jj++) {
-                    int d = ofDist(i, j, ii, jj);
-                    if(d>rangeDef){ d = rangeDef; };
-                    int dHeight = ofMap(d, 0, rangeDef, (int)h, HIGH_THRESHOLD);
-                    dHeight = MAX(LOW_THRESHOLD, dHeight);
-                    allPixels[RELIEF_PHYSICAL_SIZE_X* jj+ xCoordinateShift(ii)] =  MIN(allPixels[RELIEF_PHYSICAL_SIZE_X* jj+ xCoordinateShift(ii)],dHeight);
-                    }
-                }
-            }
-            
-        }
-    }
-    
-    for(int i = 0; i< RELIEF_SIZE_X; i++){
-        for(int j = 0; j< RELIEF_SIZE_Y; j++){
-            if (isTouched[i][j]) {
-                unsigned char h = MAX(LOW_THRESHOLD,mPinHeightReceive[i * lineSize + j]);
-                h = MIN((int)h+35,HIGH_THRESHOLD);
-                allPixels[RELIEF_PHYSICAL_SIZE_X* j+ xCoordinateShift(i)] = HIGH_THRESHOLD; //(int)h;
-                for(int k = 0; k < filterFrame; k++){
-                    allPixels_store[RELIEF_PHYSICAL_SIZE_X* j+ xCoordinateShift(i)][k] = HIGH_THRESHOLD; //(int)h;
-                }
-            }
-        }
-    }
+    triSurface();
     
     
     
@@ -174,6 +136,8 @@ void TouchShapeObject::update(float dt)
     
     
 }
+
+
 
 //----------------------------------------------------
 
@@ -280,3 +244,170 @@ int TouchShapeObject::xCoordinateShift (int num){
     }
     return val;
 }
+
+//----------------------------------------------------
+
+void TouchShapeObject::singleElasticSurface()
+{
+    //*** MODE: Multi Touch Deformation ***//
+    for(int i = 0; i< RELIEF_SIZE_X; i++){
+        for(int j = 0; j< RELIEF_SIZE_Y; j++){
+            allPixels[RELIEF_PHYSICAL_SIZE_X* j+ xCoordinateShift(i)] = HIGH_THRESHOLD;
+            
+        }
+    }
+    
+    int rangeDef = 10; //range of deformation
+    for(int i = 0; i< RELIEF_SIZE_X; i++){
+        for(int j = 0; j< RELIEF_SIZE_Y; j++){
+            if (isTouched[i][j]) {
+                unsigned char h = MAX(LOW_THRESHOLD,mPinHeightReceive[i * lineSize + j]);
+                for (int ii = MAX(0,i - rangeDef); ii< MIN(RELIEF_SIZE_X,i+rangeDef); ii++) {
+                    for (int jj = MAX(0,j - rangeDef); jj< MIN(RELIEF_SIZE_Y,j+rangeDef); jj++) {
+                        int d = ofDist(i, j, ii, jj);
+                        if(d>rangeDef){ d = rangeDef; };
+                        int dHeight = ofMap(d, 0, rangeDef, (int)h, HIGH_THRESHOLD);
+                        dHeight = MAX(LOW_THRESHOLD, dHeight);
+                        allPixels[RELIEF_PHYSICAL_SIZE_X* jj+ xCoordinateShift(ii)] =  MIN(allPixels[RELIEF_PHYSICAL_SIZE_X* jj+ xCoordinateShift(ii)],dHeight);
+                    }
+                }
+            }
+            
+        }
+    }
+    
+    for(int i = 0; i< RELIEF_SIZE_X; i++){
+        for(int j = 0; j< RELIEF_SIZE_Y; j++){
+            if (isTouched[i][j]) {
+                unsigned char h = MAX(LOW_THRESHOLD,mPinHeightReceive[i * lineSize + j]);
+                h = MIN((int)h+35,HIGH_THRESHOLD);
+                allPixels[RELIEF_PHYSICAL_SIZE_X* j+ xCoordinateShift(i)] = HIGH_THRESHOLD; //(int)h;
+                for(int k = 0; k < filterFrame; k++){
+                    allPixels_store[RELIEF_PHYSICAL_SIZE_X* j+ xCoordinateShift(i)][k] = HIGH_THRESHOLD; //(int)h;
+                }
+            }
+        }
+    }
+}
+
+//----------------------------------------------------
+
+void TouchShapeObject::triSurface()
+{
+    
+    
+    //*** FIRST Surface;  Rigid Surface ***//
+    int minHeight = HIGH_THRESHOLD;
+    for(int i = 0; i< 16; i++){
+        for(int j = 0; j< RELIEF_SIZE_Y; j++){
+            if (isTouched[i][j]) {
+                unsigned char h = MAX(LOW_THRESHOLD,mPinHeightReceive[i * lineSize + j]);
+                minHeight = MIN(h,minHeight);
+            }
+        }
+    }
+    
+    for(int i = 0; i< 16; i++){
+        for(int j = 0; j< RELIEF_SIZE_Y; j++){
+            allPixels[RELIEF_PHYSICAL_SIZE_X* j+ xCoordinateShift(i)] = minHeight;
+        }
+    }
+    
+    for(int i = 0; i< 16; i++){
+        for(int j = 0; j< RELIEF_SIZE_Y; j++){
+            if (isTouched[i][j]) {
+                unsigned char h = MAX(LOW_THRESHOLD,mPinHeightReceive[i * lineSize + j]);
+                h = MIN((int)h+35,HIGH_THRESHOLD);
+                allPixels[RELIEF_PHYSICAL_SIZE_X* j+ xCoordinateShift(i)] = HIGH_THRESHOLD; //(int)h;
+                for(int k = 0; k < filterFrame; k++){
+                    allPixels_store[RELIEF_PHYSICAL_SIZE_X* j+ xCoordinateShift(i)][k] = HIGH_THRESHOLD; //(int)h;
+                }
+            }
+        }
+    }
+    
+    
+    //*** SECOND Surface; Elastisity ***//
+    for(int i = 16; i< 32; i++){
+        for(int j = 0; j< RELIEF_SIZE_Y; j++){
+            allPixels[RELIEF_PHYSICAL_SIZE_X* j+ xCoordinateShift(i)] = HIGH_THRESHOLD;
+            
+        }
+    }
+    
+    int rangeDef = 12; //range of deformation
+    for(int i = 16; i< 32; i++){
+        for(int j = 0; j< RELIEF_SIZE_Y; j++){
+            if (isTouched[i][j]) {
+                unsigned char h = MAX(LOW_THRESHOLD,mPinHeightReceive[i * lineSize + j]);
+                for (int ii = MAX(16,i - rangeDef); ii< MIN(32,i+rangeDef); ii++) {
+                    for (int jj = MAX(0,j - rangeDef); jj< MIN(RELIEF_SIZE_Y,j+rangeDef); jj++) {
+                        int d = ofDist(i, j, ii, jj);
+                        if(d>rangeDef){ d = rangeDef; };
+                        int dHeight = ofMap(d, 0, rangeDef, (int)h, HIGH_THRESHOLD);
+                        dHeight = MAX(LOW_THRESHOLD, dHeight);
+                        allPixels[RELIEF_PHYSICAL_SIZE_X* jj+ xCoordinateShift(ii)] =  MIN(allPixels[RELIEF_PHYSICAL_SIZE_X* jj+ xCoordinateShift(ii)],dHeight);
+                    }
+                }
+            }
+            
+        }
+    }
+    
+    for(int i = 16; i< 32; i++){
+        for(int j = 0; j< RELIEF_SIZE_Y; j++){
+            if (isTouched[i][j]) {
+                unsigned char h = MAX(LOW_THRESHOLD,mPinHeightReceive[i * lineSize + j]);
+                h = MIN((int)h+35,HIGH_THRESHOLD);
+                allPixels[RELIEF_PHYSICAL_SIZE_X* j+ xCoordinateShift(i)] = HIGH_THRESHOLD; //(int)h;
+                for(int k = 0; k < filterFrame; k++){
+                    allPixels_store[RELIEF_PHYSICAL_SIZE_X* j+ xCoordinateShift(i)][k] = HIGH_THRESHOLD; //(int)h;
+                }
+            }
+        }
+    }
+    
+    
+    ////*** THIRD Surface; elastic Surface (pull) ***////
+    for(int i = 32; i< RELIEF_SIZE_X; i++){
+        for(int j = 0; j< RELIEF_SIZE_Y; j++){
+            allPixels[RELIEF_PHYSICAL_SIZE_X* j+ xCoordinateShift(i)] = LOW_THRESHOLD;
+        }
+    }
+    
+    
+    
+    rangeDef = 8;
+    for(int i = 32; i< RELIEF_SIZE_X; i++){
+        for(int j = 0; j< RELIEF_SIZE_Y; j++){
+            if (isTouched[i][j]) {
+                unsigned char h = MAX(LOW_THRESHOLD,MIN(HIGH_THRESHOLD,mPinHeightReceive[i * lineSize + j]));
+                for (int ii = MAX(32,i - rangeDef); ii< MIN(RELIEF_SIZE_X,i+rangeDef); ii++) {
+                    for (int jj = MAX(0,j - rangeDef); jj< MIN(RELIEF_SIZE_Y,j+rangeDef); jj++) {
+                        int d = ofDist(i, j, ii, jj);
+                        if(d>rangeDef){ d = rangeDef; };
+                        int dHeight = ofMap(d, 0, rangeDef, (int)h, LOW_THRESHOLD);
+                        dHeight = MAX(LOW_THRESHOLD, dHeight);
+                            allPixels[RELIEF_PHYSICAL_SIZE_X* jj+ xCoordinateShift(ii)] = MAX((int)allPixels[RELIEF_PHYSICAL_SIZE_X* jj+ xCoordinateShift(ii)], dHeight);
+                    }
+                }
+            }
+            
+        }
+    }
+    
+    for(int i = 32; i< RELIEF_SIZE_X; i++){
+        for(int j = 0; j< RELIEF_SIZE_Y; j++){
+            if (isTouched[i][j]) {
+                allPixels[RELIEF_PHYSICAL_SIZE_X* j+ xCoordinateShift(i)] = LOW_THRESHOLD; //(int)h;
+                for(int k = 0; k < filterFrame; k++){
+                    allPixels_store[RELIEF_PHYSICAL_SIZE_X* j+ xCoordinateShift(i)][k] = LOW_THRESHOLD; //(int)h;
+                }
+            }
+        }
+    }
+    
+    
+    
+}
+
