@@ -118,8 +118,17 @@ void TouchShapeObject::update(float dt)
     
     
     
-    //triSurface();
-    waveSurface();
+    
+    
+    if (touchMode ==0) {
+        waveSurface();
+    } else if (touchMode ==1){
+        singleElasticSurface();
+    } else if (touchMode==2){
+        
+        triSurface();
+    }
+    
     
     
     //*** MODE: One Center Pin Input ***//
@@ -474,6 +483,16 @@ void TouchShapeObject::waveSurface()
         }
     }
     
+    
+}
+
+void TouchShapeObject::modeChange()
+{
+    touchMode++;
+    TouchShapeObject();
+    if(touchMode == touchModeNum){
+        touchMode=0;
+    }
     
 }
 

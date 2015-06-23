@@ -853,6 +853,9 @@ void ReliefApplication::keyPressed(int key){
             timeline.play();
             cout << 0 << endl;
             break;
+        case '0':
+            mTouchShapeObject->modeChange();
+            break;
 
 	}
     

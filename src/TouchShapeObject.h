@@ -36,6 +36,10 @@ public:
     void triSurface();
     void waveSurface();
     
+    void modeChange();
+    int touchMode = 0;
+    int touchModeNum = 3;
+    
     unsigned char* getPixels();
     
     int xCoordinateShift(int num);
