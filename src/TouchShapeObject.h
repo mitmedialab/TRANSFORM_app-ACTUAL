@@ -18,6 +18,7 @@
 class TouchShapeObject : public ShapeObject {
     
 #define NUM_FILTER_FRAME 6
+#define NUM_WAVE_FRAME 50
     
 public:
     TouchShapeObject();
@@ -55,9 +56,15 @@ private:
     int filterFrame = NUM_FILTER_FRAME;
     int lineSize;
     
+    int defaultHeight = LOW_THRESHOLD;
+    
     unsigned char allPixels_store[RELIEF_SIZE][NUM_FILTER_FRAME];
     
+    unsigned char mPinHeightReceive_store[RELIEF_SIZE_X][RELIEF_SIZE_Y][NUM_WAVE_FRAME]; //Store touched record for Wave Interaction
+    
     Boolean isTouched[RELIEF_SIZE_X][RELIEF_SIZE_Y];
+
+    
 };
 
 

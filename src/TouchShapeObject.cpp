@@ -29,6 +29,15 @@ TouchShapeObject::TouchShapeObject()
         }
     }
     lineSize = sizeof(char) * RELIEF_SIZE_Y;
+    
+    
+    for (int i = 0; i < RELIEF_SIZE_X; i++) {
+        for(int j = 0; j < RELIEF_SIZE_Y; j++){
+            for (int k = 0; k < NUM_WAVE_FRAME ; k++) {
+                mPinHeightReceive_store[i][j][k] = defaultHeight;
+            }
+        }
+    }
 }
 
 void TouchShapeObject::setup()
@@ -109,8 +118,8 @@ void TouchShapeObject::update(float dt)
     
     
     
-    triSurface();
-    
+    //triSurface();
+    waveSurface();
     
     
     //*** MODE: One Center Pin Input ***//
@@ -407,6 +416,63 @@ void TouchShapeObject::triSurface()
         }
     }
     
+    
+    
+}
+
+
+//----------------------------------------------------
+
+void TouchShapeObject::waveSurface()
+{
+    //store the received value
+    for(int i = 0; i< RELIEF_SIZE_X; i++){
+        for (int j =0; j<RELIEF_SIZE_Y; j++) {
+            for (int k = NUM_WAVE_FRAME -1; k >0 ; k--) {
+                mPinHeightReceive_store[i][j][k] = mPinHeightReceive_store[i][j][k-1];
+            }
+            if(isTouched[i][j]){
+                mPinHeightReceive_store[i][j][0] = mPinHeightReceive[i * lineSize + j];
+            } else {
+                mPinHeightReceive_store[i][j][0] = defaultHeight;
+            }
+        }
+    }
+    
+    for(int i = 0; i< RELIEF_SIZE_X; i++){
+        for(int j = 0; j< RELIEF_SIZE_Y; j++){
+            allPixels[RELIEF_PHYSICAL_SIZE_X* j+ xCoordinateShift(i)] = defaultHeight;
+        }
+    }
+
+    for (int i = 0; i < RELIEF_SIZE_X; i++) {
+        for(int j = 0; j < RELIEF_SIZE_Y; j++){
+            for (int k = 1; k < NUM_WAVE_FRAME ; k++) {
+                if (mPinHeightReceive_store[i][j][k] < defaultHeight) {
+                    for (int ii = MAX(0, i-k); ii<MIN(RELIEF_SIZE_X, i+k+1); ii++) {
+                        for (int jj = MAX(0, j-k); jj<MIN(RELIEF_SIZE_Y, j+k+1); jj++) {
+                            int d = ofDist(i, j, ii, jj);
+                            if (d==k) {
+                                allPixels[RELIEF_PHYSICAL_SIZE_X* jj + xCoordinateShift(ii)] = MIN(HIGH_THRESHOLD, allPixels[RELIEF_PHYSICAL_SIZE_X* jj + xCoordinateShift(ii)] + (LOW_THRESHOLD - mPinHeightReceive_store[i][j][k])/2);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    for(int i = 0; i< RELIEF_SIZE_X; i++){
+        for(int j = 0; j< RELIEF_SIZE_Y; j++){
+            if (isTouched[i][j]) {
+                allPixels[RELIEF_PHYSICAL_SIZE_X* j+ xCoordinateShift(i)] = defaultHeight; //(int)h;
+                for(int k = 0; k < filterFrame; k++){
+                    allPixels_store[RELIEF_PHYSICAL_SIZE_X* j+ xCoordinateShift(i)][k] = defaultHeight; //(int)h;
+                }
+            }
+        }
+    }
     
     
 }
