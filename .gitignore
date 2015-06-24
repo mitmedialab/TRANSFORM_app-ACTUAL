@@ -17,6 +17,9 @@ addons/*
 # see apps/.gitignore
 apps/*
 
+# rule to avoid app instance data going into git
+bin/data/*.xml
+
 # also, see examples/.gitignore
 
 #########################
