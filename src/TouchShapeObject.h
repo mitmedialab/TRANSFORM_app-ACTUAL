@@ -17,7 +17,7 @@
 
 class TouchShapeObject : public ShapeObject {
     
-#define NUM_FILTER_FRAME 6
+#define NUM_FILTER_FRAME 5
 #define NUM_WAVE_FRAME 50
     
 public:

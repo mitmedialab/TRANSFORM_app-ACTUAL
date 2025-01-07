@@ -16,12 +16,12 @@
 <Widget>
     <Kind>42</Kind>
     <Name>Far Threshold</Name>
-    <Value>94</Value>
+    <Value>91</Value>
 </Widget>
 <Widget>
     <Kind>42</Kind>
     <Name>Contour Min Size</Name>
-    <Value>738</Value>
+    <Value>1034</Value>
 </Widget>
 <Widget>
     <Kind>2</Kind>

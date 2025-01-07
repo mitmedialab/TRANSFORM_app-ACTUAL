@@ -204,6 +204,7 @@ void ReliefApplication::setupEasyGui() {
     modes.push_back("escher drop/pickup");
     modes.push_back("kinect hand");
     modes.push_back("kinect hand mirror");
+    modes.push_back("touch materiable");
     
     ofxUIRadio *easyRadio = easyGui->addRadio("MODES", modes);
     easyRadio->activateToggle("none");
@@ -882,7 +883,7 @@ void ReliefApplication::exit(){
     
     controlTimeline = false;
     controlManual = true;
-    mImageShapeObject->drawImageByFileName("exit.jpg");
+    mImageShapeObject->drawImageByFileName("escher_02 copy.png");
     mCurrentShapeObjects.clear();
     mCurrentShapeObjects.push_back(mImageShapeObject);
     update();
@@ -1256,6 +1257,16 @@ void ReliefApplication::guiEvent(ofxUIEventArgs &e) {
             mCurrentShapeObjects.clear();
             mCurrentShapeObjects.push_back(mHandShapeObject);
             mHandShapeObject->setMirror(true);
+        }
+        else if(radio->getActiveName() == "touch materiable")
+        {
+            cout << "touch materiable" << endl;
+            controlTimeline = false;
+            controlManual = true;
+            
+            mCurrentShapeObjects.clear();
+            mCurrentShapeObjects.push_back(mTouchShapeObject);
+            //mHandShapeObject->setMirror(true);
         }
     }
     

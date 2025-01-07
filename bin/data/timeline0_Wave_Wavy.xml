@@ -5,4 +5,10 @@
         <time>00:00:00:001</time>
         <value>0.475000024</value>
     </key>
+    <key>
+        <switchName />
+        <max>00:04:09:692</max>
+        <time>00:04:09:692</time>
+        <value>0.300000012</value>
+    </key>
 </keyframes>

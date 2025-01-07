@@ -94,7 +94,6 @@ void TouchShapeObject::update(float dt)
             int input = int(mPinHeightReceive[i * lineSize + j]);
             
             differenceHeight[i][j] =  output - input;
-
             
         }
     }
@@ -108,8 +107,6 @@ void TouchShapeObject::update(float dt)
                 } else {
                     isTouched[i][j] = false;
                 }
-                
-                
             } else {
                 isTouched[i][j] = false;
             }
@@ -272,7 +269,7 @@ void TouchShapeObject::singleElasticSurface()
         for(int j = 0; j< RELIEF_SIZE_Y; j++){
             allPixels[RELIEF_PHYSICAL_SIZE_X* j+ xCoordinateShift(i)] = HIGH_THRESHOLD;
             
-        }
+        }   
     }
     
     int rangeDef = 10; //range of deformation
